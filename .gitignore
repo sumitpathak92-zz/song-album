@@ -250,3 +250,56 @@ public class TestClass {
 	}
 
 }
+
+
+
+
+SQL QUESTION
+===========================
+
+
+
+Tables
+
+Employee_311205
+
+
+emp_no             int                      PRIMARY KEY,
+emp_name    varchar(20),
+hire_date          date                      NOT NULL,
+emp_sal            int,
+emp_comm      int,
+job_no             int,                    REFERENCES Job_311205(job_no),
+dept_no           int,                    REFERENCES Dept_311205(dept_no)
+
+
+
+Job_311205
+
+job_no            int             PRIMARY KEY,
+job_name    varchar(20)
+
+Dept_311205
+
+dept_no         int               PRIMARY KEY,
+dept_name  varchar(20)
+
+
+
+
+
+Write Queries to 
+
+1. Display the department number and number of clerks in each department.
+2. Display the department name, total salary payout and total commission payout for each department.
+3. Display a list of all departments with the employees in each department.
+4. Display average salary of employees in each department with department name
+5. Display number of 'analyst' working in each department with department names
+6. Display the department names in the ascending order of maximum amount of commision each department 
+7. Display all the job names having average of salary greater than 25000
+8. Display name.department name and job of those employee who has salary greater than 'Trevor Hayes '
+9. Display the names and job titles of all employees with the same job as 'Rahim Huber'
+
+===============================================================================================================
+
+
