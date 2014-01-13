@@ -1,155 +1,147 @@
 album.java
 ==================================
 
-package Diagnostic;
+package diagnostic;
 import java.util.ArrayList;
 
 public class Album {
 
-	private static final Songs Songs = null;
-	static ArrayList<Songs> songList = new ArrayList<Songs> (20);
+	ArrayList<Songs> songList = new ArrayList<Songs>();
 	
-	public void addSongsToList(Songs song)
+	//add songs to the list
+	
+	public void addSongToList(Songs song)
 	{
 		songList.add(song);
 	}
 	
-	public void removeSongFromAlbum(Songs song)
+	//remove song from list
+	
+	public void removeSongsFromList(Songs song)
 	{
 		songList.remove(song);
 	}
 	
-	Album() 
+	//constructor for album
+	
+	Album()
 	{
 		
 	}
 	
+	//search for a given song
 	
-	
-	
-	
-	public Songs searchSong(String titleOfSong)
+	public void searchForSong(String titleOfSong)
 	{
-		Songs currentSong = null;
-	
-		for (Songs tempSong: songList)
-		{
-			if(tempSong.getSongTitle.equals(titleOfSong))
+		
+			for(Songs tempSong : songList)
+		
+		   {
+			if (tempSong.getSongTitle().equals(titleOfSong))
 			{
-				System.out.println("song you are searching for is: " +tempSong.getSinger());
+				System.out.println("Song you searched for is: " +titleOfSong+ " duration of song is: " +tempSong.getSongDuration()+ " singer is : " +tempSong.getSinger());
+				
 			}
-		}
-		return null;
+			else
+			{
+				//throw new NullPointerException("the song searched is not available");
+			}
+		   }
+		
+	
+		
 	}
-
 	
+	// method to find total songs in the arrayList
 	
-	
-	public int findTotalNoOfSongs() throws NullPointerException
+	public int findTotalNoOfSongs()
 	{
 		int totalSongs = 0;
 		totalSongs = songList.size();
 		
-		if(totalSongs == 0)
+		if(totalSongs == 0) 
 		{
 			throw new NullPointerException("no song found");
 		}
 		return totalSongs;
 	}
-	{
-		
-	}
-	public String  songDurationLessSixMin()
-	{
 	
+	//return song with duration less than 6 minutes
+	
+	public String songDurationLessThanSixMinutes()
+	{
 		String currentSong = null;
 		for(Songs tempSong : songList)
 		{
-			if(tempSong.getDuration()<6.0)
+			if (tempSong.getSongDuration() < 6.00)
 			{
-				currentSong =  tempSong.getSongTitle();
+				currentSong = tempSong.getSongTitle();
 			}
+			
 		}
 		return currentSong;
 	}
 	
+	//method to find title of song by a particular singer
 	
-	public String findSongOfSinger(String singer) throws SongNotFoundException
-	
+	public String findSongOfSinger(String singer) throws Songnotfoundexception
 	{
 		String songTitle = null;
-		
 		for(Songs tempSong : songList)
 		{
 			if(tempSong.getSinger().equals(singer))
 			{
-				songTitle = tempSong.getSongTitle();
-				System.out.println("found");
+				songTitle = tempSong.getSinger();
+				
 			}
 			else
 			{
-				throw new SongNotFoundException();
+				throw new Songnotfoundexception();
 			}
 		}
 		return songTitle;
 	}
-	//public int  findTotalNoOfSongs() throws SongNotFoundException
-	{
-		
-	}
-	
-	
 }
+
 
 
 songnotfoundexception.java
 ==========================================
 
-package Diagnostic;
+package diagnostic;
 
-public class SongNotFoundException extends Exception{
-	
-	
+public class Songnotfoundexception extends Exception {
 
 	
 	private static final long serialVersionUID = 1L;
-
-	SongNotFoundException()
+	
+	Songnotfoundexception()
 	{
 		super("Song/singer searched for is not available");
 	}
+	
+
 }
 
 songs.java
 ==============================================
 
-package Diagnostic;
+package diagnostic;
 
 public class Songs {
-	
-	//various attrib of the song
-	private String songTitle;
-	
-	private double duration;
-	
+	private String songTitle ;
+	private double songDuration;
 	private String singer;
-	public Object getSongTitle;
 	
+	//constructor
 	
-	Songs(String songTitle,double duration ,String singer) //constructor of songs
+	Songs(String songTitle, double songDuration, String singer)
 	{
-	
-		this.songTitle=songTitle;
-		this.duration = duration;
+		this.songTitle = songTitle;
+		this.songDuration = songDuration;
 		this.singer = singer;
 	}
 
-	Songs()
-	{
-		
-	}
-	
-	
 	//getter and setter
 	
 	public String getSongTitle() {
@@ -160,12 +152,12 @@ public class Songs {
 		this.songTitle = songTitle;
 	}
 
-	public double getDuration() {
-		return duration;
+	public double getSongDuration() {
+		return songDuration;
 	}
 
-	public void setDuration(double duration) {
-		this.duration = duration;
+	public void setSongDuration(int songDuration) {
+		this.songDuration = songDuration;
 	}
 
 	public String getSinger() {
@@ -177,76 +169,65 @@ public class Songs {
 	}
 	
 	
+	
+	
 
 }
 
 testclass.java
 ===========================================================
 
-package Diagnostic;
-import java.util.ArrayList;
+package diagnostic;
+//import java.util.ArrayList;
 
-public class TestClass {
+public class Testclass {
 
-	static ArrayList<Songs> songList = new ArrayList<Songs> (20);
+	
 	public static void main(String[] args) {
-
-
+	
+		//static ArrayList<Songs> 
+		//creating new songs objects
+		
+		Songs newSong1 = new Songs("tere bin", 4.50, "atif");
+		Songs newSong2 = new Songs("inter. villager", 6.00, "Yo-Yo Honey Singh");
+		Songs newSong3 = new Songs("jeene laga", 6.50, "atif");
+		Songs newSong4 = new Songs("yaariyan", 3.30, "Amrinder");
+		Songs newSong5 = new Songs("paradise", 6.00, "coldplay");
+		Songs newSong6 = new Songs("walk", 6.30, "pantera");
+		
 		Album newAlbum = new Album();
-		Songs newSong1 = new Songs("Tum Bin", 5.30, "Rahat");
-		Songs newSong2 = new Songs("Tere bin", 6.30, "girish");
-		Songs newSong3 = new Songs("hello", 4.30, "ravi");
-		Songs newSong4 = new Songs("hi hw r u", 5.30, "Rajat");
-		Songs newSong5 = new Songs("bin tere", 7.30, "Raghav");
 		
-		System.out.println("Adding songs to the album");
+		//adding songs to the list
 		
-		newAlbum.addSongsToList(newSong1);
-		newAlbum.addSongsToList(newSong2);
-		newAlbum.addSongsToList(newSong3);
-		newAlbum.addSongsToList(newSong4);
-		newAlbum.addSongsToList(newSong5);
-		
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		
-		
-		System.out.println("it is now searching for the song ");
-		
-			System.out.println("Songs of less than 6 minutes are:" +newAlbum.songDurationLessSixMin());
-			
-		for(Songs song : songList)
-		{
-			System.out.println("songs are :" );
-			System.out.println(song.getSongTitle());
-		}
-		
-		
-		
-		
-		try{
-           int totalNumberOfSongs = newAlbum.findTotalNoOfSongs();
-           System.out.println("total number of songs in album are" +totalNumberOfSongs);
-           System.out.println();
-           System.out.println();
-           System.out.println();
-           
-           System.out.println();
-           
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-			System.out.println(e.getClass());
-		}
-		
+		newAlbum.addSongToList(newSong1);
+		newAlbum.addSongToList(newSong2);
+		newAlbum.addSongToList(newSong3);
+		newAlbum.addSongToList(newSong4);
+		newAlbum.addSongToList(newSong5);
+		newAlbum.addSongToList(newSong6);
 		
 	
+		System.out.println("SOngs less than 6 min are : " +newAlbum.songDurationLessThanSixMinutes());	
 		
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		newAlbum.searchForSong("walk");
+		
+		System.out.println();
+		System.out.println();
+		
+		try {
+			System.out.println("Song of singer Atif aslam is: " +newAlbum.findSongOfSinger("Amrinder"));
+		} catch (Songnotfoundexception e) {
+			
+			e.printStackTrace();
+		}
+		
+		System.out.println("total no of songs in list are : " +newAlbum.findTotalNoOfSongs());
+		
+		
+
 	}
 
 }
