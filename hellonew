@@ -1,0 +1,501 @@
+album.java
+============
+package Diagnostic;
+import java.util.ArrayList;
+
+public class Album {
+
+        ArrayList<Songs> songList = new ArrayList<Songs>();
+        
+        //add songs to the list
+        
+        public void addSongToList(Songs song)
+        {
+                songList.add(song);
+        }
+        
+        //remove song from list
+        
+        public void removeSongsFromList(Songs song)
+        {
+                songList.remove(song);
+        }
+        
+        //constructor for album
+        
+        Album()
+        {
+                
+        }
+        
+        //search for a given song
+        
+        public void searchForSong(String titleOfSong)
+        {
+                
+                        for(Songs tempSong : songList)
+                
+                   {
+                        if (tempSong.getSongTitle().equals(titleOfSong))
+                        {
+                                System.out.println("Song you searched for is: " +titleOfSong+ " duration of song is: " +tempSong.getSongDuration()+ " singer is : " +tempSong.getSinger());
+                                
+                        }
+                        else
+                        {
+                                //throw new NullPointerException("the song searched is not available");
+                        }
+                   }
+                
+        
+                
+        }
+        
+        // method to find total songs in the arrayList
+        
+        public int findTotalNoOfSongs() throws NullPointerException
+        {
+                int totalSongs = 0;
+                totalSongs = songList.size();
+                
+                if(totalSongs == 0) 
+                {
+                        throw new NullPointerException("no song found");
+                }
+                return totalSongs;
+        }
+        
+        //return song with duration less than 6 minutes
+        
+        public ArrayList<Songs> songDurationLessThanSixMinutes() throws SongNotFoundException
+        {
+        	ArrayList<Songs> tempList = new ArrayList<Songs> ();
+               
+        	int flag = 0;
+                for(Songs tempSong : songList)
+                {
+                        if (tempSong.getSongDuration() < 6.00)
+                        {
+                               
+                                tempList.add(tempSong);
+                                flag = 1;
+                        }
+                        
+                }
+                if(flag==0)
+                {
+                	throw new SongNotFoundException();
+                }
+                return tempList;
+        }
+        
+        //method to find title of song by a particular singer
+        
+        public String findSongOfSinger(String singer) throws SongNotFoundException
+        {
+                String songTitle = null;
+               
+            	   for(Songs tempSong : songList)
+               
+                {
+                        if(tempSong.getSinger().equals(singer))
+                        {
+                                songTitle = tempSong.getSongTitle();
+                                
+                                
+                        }
+                }
+               
+            return songTitle;
+        }
+}
+
+songnot founexcp.java
+=======================
+package Diagnostic;
+
+public class SongNotFoundException extends Exception {
+
+        
+        private static final long serialVersionUID = 1L;
+        
+        SongNotFoundException()
+        {
+               System.out.println("Song/singer searched for is not available");
+        }
+        
+
+}
+
+songs.java
+==========
+package Diagnostic;
+
+public class Songs {
+        private String songTitle ;
+        private double songDuration;
+        private String singer;
+        
+        //constructor
+        
+        Songs(String songTitle, double songDuration, String singer)
+        {
+                this.songTitle = songTitle;
+                this.songDuration = songDuration;
+                this.singer = singer;
+        }
+
+        //getter and setter
+        
+        public String getSongTitle() {
+                return songTitle;
+        }
+
+        public void setSongTitle(String songTitle) {
+                this.songTitle = songTitle;
+        }
+
+        public double getSongDuration() {
+                return songDuration;
+        }
+
+        public void setSongDuration(int songDuration) {
+                this.songDuration = songDuration;
+        }
+
+        public String getSinger() {
+                return singer;
+        }
+
+        public void setSinger(String singer) {
+                this.singer = singer;
+        }
+        
+        
+        
+        
+
+}
+
+testclass.java
+=================
+package Diagnostic;
+
+import java.util.ArrayList;
+
+//import java.util.ArrayList;
+
+public class TestClass {
+
+        
+        public static void main(String[] args) {
+        
+                //static ArrayList<Songs> 
+                //creating new songs objects
+        	
+        	
+                
+                Songs newSong1 = new Songs("tere bin", 4.50, "atif");
+                Songs newSong2 = new Songs("inter. villager", 3.450, "Yo-Yo Honey Singh");
+                Songs newSong3 = new Songs("jeene laga", 2.50, "atif");
+                Songs newSong4 = new Songs("yaariyan", 6.30, "Amrinder");
+                Songs newSong5 = new Songs("paradise", 6.10, "coldplay");
+                Songs newSong6 = new Songs("walk", 6.60, "pantera");
+                
+                Album newAlbum = new Album();
+                
+                //adding songs to the list
+                
+                newAlbum.addSongToList(newSong1);
+                newAlbum.addSongToList(newSong2);
+                newAlbum.addSongToList(newSong3);
+                newAlbum.addSongToList(newSong4);
+                newAlbum.addSongToList(newSong5);
+                newAlbum.addSongToList(newSong6);
+                
+        
+                try{
+                	ArrayList<Songs> tempList = newAlbum.songDurationLessThanSixMinutes();
+                    for(Songs tempSong : tempList)
+                    {
+                    	System.out.println("Song are : " +tempSong.getSongTitle());
+                    }
+                }
+                catch(SongNotFoundException e)
+                {
+                	e.printStackTrace();
+                }
+                
+                
+                System.out.println();
+                System.out.println();
+                System.out.println();
+                newAlbum.searchForSong("walk");
+                
+                System.out.println();
+                System.out.println();
+                
+               /* newAlbum.removeSongsFromList(newSong1);
+                newAlbum.removeSongsFromList(newSong2);
+                newAlbum.removeSongsFromList(newSong3);
+                newAlbum.removeSongsFromList(newSong4);
+                newAlbum.removeSongsFromList(newSong5);
+                newAlbum.removeSongsFromList(newSong6);
+                */
+                try {
+                	String tempSong = newAlbum.findSongOfSinger("Amrinder");
+                        System.out.println("Song of singer Amrinder is: " +tempSong);
+                } catch (SongNotFoundException e) {
+                        
+                        e.printStackTrace();
+                }
+                
+                try{
+                	System.out.println("total no of songs in list are : " +newAlbum.findTotalNoOfSongs());
+                }
+                catch(NullPointerException e)
+                {
+                	System.out.println("Sorry there are no songs in the list");
+                }
+                
+                newAlbum.removeSongsFromList(newSong1);
+                
+                try
+                {
+                	System.out.println("new total songs are : " +newAlbum.findTotalNoOfSongs());
+                }
+                catch(NullPointerException e)
+                {
+                	System.out.println("no song found");
+                }
+                
+                newAlbum.removeSongsFromList(newSong2);
+                newAlbum.removeSongsFromList(newSong3);
+                newAlbum.removeSongsFromList(newSong4);
+                newAlbum.removeSongsFromList(newSong5);
+                newAlbum.removeSongsFromList(newSong6);
+                
+                try
+                {
+                	System.out.println("new number of songs in the list are : " +newAlbum.findTotalNoOfSongs());
+                }
+                catch(NullPointerException e)
+                {
+                	System.out.println("sorry but the list is empty.");
+                }
+
+        }
+
+}
+
+
+advert.java
+============
+package sellNow;
+import java.util.ArrayList;
+
+public class Advertisement {
+
+	ArrayList<Products> prodList = new ArrayList<Products> ();
+	
+	
+	//constructor
+	
+	Advertisement()
+	{
+		
+	}
+	//adding user to product list
+	
+	public void addProductToList(Products product) //throws UserAlreadyRegisteredException
+	{
+		//for(Products tempProd : prodList)
+		//{
+			//if (product.getName().equals(tempProd.getName()))
+			//{
+				//System.out.println("User already registered !");
+				//throw new UserAlreadyRegisteredException();
+			//}
+			//else {
+				prodList.add(product);
+				//}
+		//}
+		
+		
+	}
+	
+	//removing user and advertisement
+	
+	public void removeProductFromList(Products product)
+	{
+		prodList.remove(product);
+	}
+	
+	
+	
+}
+
+products.java
+===============
+package sellNow;
+
+public class Products {
+
+	private String name;
+	private String category;
+	private String brand;
+	
+	//constructor
+	
+	Products(String name, String category, String brand)
+	{
+		this.name = name;
+		this.category = category;
+		this.brand = brand;
+	}
+	
+	Products()
+	{
+		
+	}
+
+	//getters and setters
+	public String getName()
+	{
+		return name;
+	}
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+	
+	
+}
+
+testsellnow.java
+===================
+package sellNow;
+import java.util.Scanner;
+
+public class TestSellNow {
+
+	
+	public static void main(String[] args) {
+		
+		System.out.println("User are being registered and Products are being added to the list");
+	
+		Products prod1 = new Products("Sumit", "Mobile", "nokia");
+		Products prod2 = new Products("Ravi", "Mobile", "i-phone 5s");
+		Products prod3 = new Products("Vivek", "Tv", "Samsung");
+		Products prod4 = new Products("Girish", "Radio", "Panasonic");
+		Products prod5 = new Products("Panauti", "Pen", "parker");
+		
+		//Products prodNew = new Products();
+		
+		//adding products with their publisher 
+		
+		Advertisement adVer = new Advertisement();
+		
+		adVer.addProductToList(prod1);
+		adVer.addProductToList(prod2);
+		adVer.addProductToList(prod3);
+		adVer.addProductToList(prod4);
+		adVer.addProductToList(prod5);
+		
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println("the advertisement has been posted successfully for the following users!");
+		
+		for(Products tempProd : adVer.prodList)
+		{
+			System.out.println(tempProd.getName());
+		}
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter the name you want to add:");
+		
+		String tempName = sc.next();
+		System.out.println("Enter the category:");
+		String tempName2 = sc.next();
+		System.out.println("Enter the brand:");
+		String tempName3 = sc.next();
+		
+		Products prod6 = new Products(tempName, tempName2, tempName3);
+		
+
+		
+		adVer.addProductToList(prod6);
+		
+		
+		for(Products tempProd : adVer.prodList)
+		{
+		System.out.println("the new elements added are : " +tempProd.getName()+ " category " +tempProd.getCategory()+ " Brand " +tempProd.getBrand());
+		}
+		
+		
+		
+
+	}
+
+}
+
+useralreadyexcp.java
+======================
+
+package sellNow;
+
+public class UserAlreadyRegisteredException extends Exception {
+
+	
+	private static final long serialVersionUID = 1L;
+	
+	UserAlreadyRegisteredException()
+	{
+		super("Sorry but the user is already registered :(");
+	}
+	
+	
+
+}
+
+users.java
+============
+package sellNow;
+
+public class Users {
+
+	private String userName;
+	
+	Users(String userName)
+	{
+		this.userName = userName;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+}
